@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,12 +16,15 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/gotham_medium"
             android:text="Nombre:" />
 
         <TextView
+            android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:fontFamily="@font/gotham_light" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,12 +39,15 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/gotham_medium"
             android:text="Apellido:" />
 
         <TextView
+            android:id="@+id/lastNameText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:fontFamily="@font/gotham_light" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,11 +62,20 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/gotham_medium"
             android:text="Saldo:" />
 
         <TextView
+            android:id="@+id/amountText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:fontFamily="@font/gotham_light" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorAccent" />
+
 </LinearLayout>
