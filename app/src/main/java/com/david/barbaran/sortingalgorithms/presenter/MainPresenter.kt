@@ -6,8 +6,8 @@ import com.david.barbaran.sortingalgorithms.controller.MainController
 import com.david.barbaran.sortingalgorithms.model.User
 import com.david.barbaran.sortingalgorithms.task.LoadTask
 import com.david.barbaran.sortingalgorithms.task.OnTaskExecute
-import com.david.barbaran.sortingalgorithms.util.quicksort
-import com.david.barbaran.sortingalgorithms.util.selectionsort
+import com.david.barbaran.sortingalgorithms.util.OrderUtil
+
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
@@ -17,16 +17,19 @@ import java.io.InputStreamReader
 import java.io.StringWriter
 
 class MainPresenter constructor(private val context: Context) :
-    OnTaskExecute {
+    OnTaskExecute, OrderUtil.Interactor {
 
+    var orderUtil = OrderUtil()
     lateinit var controller: MainController
     lateinit var loadTask: LoadTask
-    var orderType: Int = -1
+    var orderType: Int = 0
     var orderList = mutableListOf<User>()
     var originList = mutableListOf<User>()
+    var rawData = R.raw.data_100
+    var iterationCount = 0
 
     init {
-        // loadTask.onFinishTask = this
+        orderUtil.interactor = this
     }
 
     fun load(orderType : Int) {
@@ -37,7 +40,7 @@ class MainPresenter constructor(private val context: Context) :
     }
 
     private fun loadData() {
-        val mRaw = context.resources.openRawResource(R.raw.data)
+        val mRaw = context.resources.openRawResource(rawData)
         val writer = StringWriter()
         val buffer = CharArray(1024)
         var read: Int
@@ -72,43 +75,50 @@ class MainPresenter constructor(private val context: Context) :
     }
 
     private fun orderSelection() {
+        iterationCount = 0
         loadTask.list.clear()
-        loadTask.list.addAll(selectionsort(orderList))
+        loadTask.list.addAll(orderUtil.selectionsort(orderList))
     }
 
     private fun orderQuickSot() {
+        iterationCount = 0
         loadTask.list.clear()
-        loadTask.list.addAll(quicksort(orderList))
+        loadTask.list.addAll(orderUtil.quicksort(orderList))
     }
 
     private fun defaultList() {
+        iterationCount = 0
         loadTask.list.clear()
         loadTask.list.addAll(originList)
     }
 
     override fun onLoadTask() {
         when (orderType) {
-            -1 -> {
+            0 -> {
                 loadData()
             }
-            0 -> {
+            1 -> {
                 defaultList()
             }
-            1 -> {
+            2 -> {
                 orderSelection()
             }
-            2 -> {
+            3 -> {
                 orderQuickSot()
             }
-            3 -> {
+            4 -> {
 
             }
-
         }
 
     }
 
     override fun onFinish(list: MutableList<User>) {
         controller.onLoadUserSuccessful(list)
+    }
+
+    override fun onInteracting() {
+        iterationCount++
+        controller.onIteration(iterationCount)
     }
 }

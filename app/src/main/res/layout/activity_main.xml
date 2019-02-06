@@ -6,6 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/headerLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/oneButton"
+            style="@style/ButtonGreenTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="100" />
+
+        <Button
+            android:id="@+id/twoButton"
+            style="@style/ButtonGreenTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:background="@null"
+            android:text="1K"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/threeButton"
+            style="@style/ButtonGreenTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:background="@null"
+            android:text="10K"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -13,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@+id/footerLinear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/headerLinear" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecycler"
@@ -22,7 +61,7 @@
         app:layout_constraintBottom_toTopOf="@+id/footerLinear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/headerLinear" />
 
     <LinearLayout
         android:id="@+id/footerLinear"
@@ -42,50 +81,87 @@
 
             <Button
                 android:id="@+id/defaultButton"
-                style="@style/ButtonTheme"
+                style="@style/ButtonGreenTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:text="Default" />
 
             <Button
                 android:id="@+id/selectionButton"
-                style="@style/ButtonTheme"
+                style="@style/ButtonGreenTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:text="Selection" />
 
             <Button
                 android:id="@+id/quickSortButton"
-                style="@style/ButtonTheme"
+                style="@style/ButtonGreenTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:text="QuickSort" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham_medium"
-                android:paddingStart="8dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Tiempo:"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/chronometerText"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_medium"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="Tiempo:"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/chronometerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:text="00:00:000"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/gotham_medium"
-                android:text="00:00:000"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_medium"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="Interacciones:"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/interactorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:text="0"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

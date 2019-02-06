@@ -3,6 +3,8 @@ package com.david.barbaran.sortingalgorithms.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.barbaran.sortingalgorithms.*
 import com.david.barbaran.sortingalgorithms.adapter.UserAdapter
@@ -22,32 +24,76 @@ class MainActivity : AppCompatActivity(), MainController, Chronometer.OnTimerExe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initView()
+        initClick()
+    }
+
+    private fun initView() {
         presenter.controller = this
         chronometer.onTimerExecute = this
         userRecycler.layoutManager = LinearLayoutManager(this)
         userRecycler.adapter = userAdapter
-        presenter.load(-1)
-        initClick()
+        presenter.load(0)
     }
 
     private fun initClick() {
+        oneButton.setOnClickListener {
+            changeStyle(oneButton, true)
+            changeStyle(twoButton, false)
+            changeStyle(threeButton, false)
+            userRecycler.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+            presenter.rawData = R.raw.data_100
+            presenter.load(0)
+        }
+
+        twoButton.setOnClickListener {
+            changeStyle(oneButton, false)
+            changeStyle(twoButton, true)
+            changeStyle(threeButton, false)
+            userRecycler.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+            presenter.rawData = R.raw.data_1k
+            presenter.load(0)
+        }
+
+        threeButton.setOnClickListener {
+            changeStyle(oneButton, false)
+            changeStyle(twoButton, false)
+            changeStyle(threeButton, true)
+            userRecycler.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+            presenter.rawData = R.raw.data_10k
+            presenter.load(0)
+        }
+
         defaultButton.setOnClickListener {
             chronometerText.text = "00:00:000"
-            presenter.load(0)
+            presenter.load(1)
         }
 
         selectionButton.setOnClickListener {
             chronometer.start()
             userRecycler.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
-            presenter.load(1)
+            presenter.load(2)
         }
         quickSortButton.setOnClickListener {
             chronometer.start()
             userRecycler.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
-            presenter.load(2)
+            presenter.load(3)
         }
+    }
+
+    private fun changeStyle(button: Button, isSelected: Boolean) {
+        button.setBackgroundResource(if (isSelected) R.drawable.ic_background_green else 0)
+        button.setTextColor(
+            ContextCompat.getColor(
+                this,
+                if (isSelected) R.color.colorPrimary else android.R.color.white
+            )
+        )
     }
 
     override fun onLoadUserSuccessful(list: MutableList<User>) {
@@ -61,6 +107,12 @@ class MainActivity : AppCompatActivity(), MainController, Chronometer.OnTimerExe
     override fun onExecute(time: String) {
         runOnUiThread {
             chronometerText.text = time
+        }
+    }
+
+    override fun onIteration(count: Int) {
+        runOnUiThread {
+            interactorText.text = "$count"
         }
     }
 }
