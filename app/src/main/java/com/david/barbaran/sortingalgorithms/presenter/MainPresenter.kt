@@ -27,12 +27,13 @@ class MainPresenter constructor(private val context: Context) :
     var originList = mutableListOf<User>()
     var rawData = R.raw.data_100
     var iterationCount = 0
+    var recursiveCount = 0
 
     init {
         orderUtil.interactor = this
     }
 
-    fun load(orderType : Int) {
+    fun load(orderType: Int) {
         this.orderType = orderType
         loadTask = LoadTask()
         loadTask.onFinishTask = this
@@ -70,26 +71,38 @@ class MainPresenter constructor(private val context: Context) :
         val yourList = Gson().fromJson<MutableList<User>>(jsonArray, listType)
         loadTask.list.clear()
         loadTask.list.addAll(yourList)
+        orderList.clear()
         orderList.addAll(yourList)
+        originList.clear()
         originList.addAll(yourList)
     }
 
     private fun orderSelection() {
         iterationCount = 0
+        recursiveCount = 0
         loadTask.list.clear()
         loadTask.list.addAll(orderUtil.selectionsort(orderList))
     }
 
     private fun orderQuickSot() {
         iterationCount = 0
+        recursiveCount = 0
         loadTask.list.clear()
-        loadTask.list.addAll(orderUtil.quicksort(orderList))
+        loadTask.list.addAll(orderUtil.auxQuickSort(orderList))
     }
 
     private fun defaultList() {
         iterationCount = 0
+        recursiveCount = 0
         loadTask.list.clear()
         loadTask.list.addAll(originList)
+    }
+
+    private fun orderInsertion() {
+        iterationCount = 0
+        recursiveCount = 0
+        loadTask.list.clear()
+        loadTask.list.addAll(orderUtil.insertionsort(orderList))
     }
 
     override fun onLoadTask() {
@@ -107,7 +120,7 @@ class MainPresenter constructor(private val context: Context) :
                 orderQuickSot()
             }
             4 -> {
-
+                orderInsertion()
             }
         }
 
@@ -120,5 +133,10 @@ class MainPresenter constructor(private val context: Context) :
     override fun onInteracting() {
         iterationCount++
         controller.onIteration(iterationCount)
+    }
+
+    override fun onRecursive() {
+        recursiveCount++
+        controller.onRecursive(recursiveCount)
     }
 }

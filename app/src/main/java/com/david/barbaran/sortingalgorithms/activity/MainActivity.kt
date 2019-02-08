@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.barbaran.sortingalgorithms.*
 import com.david.barbaran.sortingalgorithms.adapter.UserAdapter
+import com.david.barbaran.sortingalgorithms.config.Setting
 import com.david.barbaran.sortingalgorithms.controller.MainController
 import com.david.barbaran.sortingalgorithms.model.User
 import com.david.barbaran.sortingalgorithms.presenter.MainPresenter
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), MainController, Chronometer.OnTimerExe
         userRecycler.layoutManager = LinearLayoutManager(this)
         userRecycler.adapter = userAdapter
         presenter.load(0)
+        secondarySwitch.setOnCheckedChangeListener { _, p1 -> Setting.isDetail = p1 }
     }
 
     private fun initClick() {
@@ -73,17 +75,32 @@ class MainActivity : AppCompatActivity(), MainController, Chronometer.OnTimerExe
         }
 
         selectionButton.setOnClickListener {
+            resetCount()
             chronometer.start()
             userRecycler.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
             presenter.load(2)
         }
         quickSortButton.setOnClickListener {
+            resetCount()
             chronometer.start()
             userRecycler.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
             presenter.load(3)
         }
+
+        mergeSortButton.setOnClickListener {
+            resetCount()
+            chronometer.start()
+            userRecycler.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+            presenter.load(4)
+        }
+    }
+
+    private fun resetCount(){
+        interactorText.text = "0"
+        recursiveText.text = "0"
     }
 
     private fun changeStyle(button: Button, isSelected: Boolean) {
@@ -113,6 +130,12 @@ class MainActivity : AppCompatActivity(), MainController, Chronometer.OnTimerExe
     override fun onIteration(count: Int) {
         runOnUiThread {
             interactorText.text = "$count"
+        }
+    }
+
+    override fun onRecursive(count: Int) {
+        runOnUiThread {
+            recursiveText.text = "$count"
         }
     }
 }
