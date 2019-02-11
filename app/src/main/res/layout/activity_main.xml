@@ -110,13 +110,6 @@
                     android:text="Default" />
 
                 <Button
-                    android:id="@+id/mergeSortButton"
-                    style="@style/ButtonGreenTheme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="InsertionSort" />
-
-                <Button
                     android:id="@+id/selectionButton"
                     style="@style/ButtonGreenTheme"
                     android:layout_width="wrap_content"
@@ -129,6 +122,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:text="QuickSort" />
+
+                <Button
+                    android:id="@+id/mergeSortButton"
+                    style="@style/ButtonGreenTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="InsertionSort" />
 
             </LinearLayout>
         </HorizontalScrollView>

@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), MainController, Chronometer.OnTimerExe
         }
 
         defaultButton.setOnClickListener {
+            resetCount()
             chronometerText.text = "00:00:000"
             presenter.load(1)
         }
